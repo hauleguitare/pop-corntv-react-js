@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active_search_bar_input {
+  @apply w-full;
+  @apply transition-[max-w-full_0.4s_ease-in-out];
+  @apply duration-500;
+}
+
+.active_search_bar_input #btn_search_bar_movies {
+  @apply transition-[max-w-full_0.4s_ease-in-out];
+  @apply duration-500;
+  @apply block;
+}
+
+.active_search_bar_input #show_form_search_bar {
+  @apply block;
+}
