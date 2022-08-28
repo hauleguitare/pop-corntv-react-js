@@ -84,7 +84,7 @@ const MenuResponsive: React.FunctionComponent<IMenuResponsive> = (props) =>{
         `md:hidden fixed top-0 h-full w-full duration-500 ${isOpenMenu ? 'right-0' : 'right-[-100%]'} z-30`
         }>
             {isOpenMenu && (
-                <div className='fixed inset-0 bg-black/20 backdrop-blur-sm'></div>
+                <div className='fixed top-0 h-screen w-full bg-stone-700/40 backdrop-blur-2xl'></div>
             )}
             <nav className='block h-screen w-3/4 overflow-y-auto px-6 py-6 ml-auto z-10 relative bg-white text-black'>
                 <button className='absolute top-2 left-2' onClick={OnChangeOpenMenu}>

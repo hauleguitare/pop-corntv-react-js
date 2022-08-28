@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .active_show_sub_menu_navbar {
+    background: #000;
+  }
+  .active_show_sub_menu_navbar #sub_menu_dropdown_movies {
+    @apply block;
+  }
+}
+
 .active_search_bar_input {
   @apply w-full;
   @apply transition-[max-w-full_0.4s_ease-in-out];

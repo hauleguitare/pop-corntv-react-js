@@ -1,7 +1,103 @@
 import React, { useEffect, useState } from 'react';
-import {BsSearch} from 'react-icons/bs';
 import {HiOutlineMenuAlt2} from 'react-icons/hi';
+import LoginRegisterComponent from './Components/LoginRegister';
+import LogoComponent from './Components/Logo';
+import MenuContainerComponent from './Components/MenuContainer';
+import SearchBarComponent from './Components/SearchBar';
+import SubMenuComponent, { ISubMenuComponentProps } from './Components/SubMenu';
 import MenuResponsive from './Features/Responsive';
+
+
+const Movies: ISubMenuComponentProps = {
+    title: 'Movies',
+    list_submenu: [
+        {
+            title: 'Top rated',
+            url: '#'
+        },
+        {
+            title: 'Up Coming',
+            url: '#'
+        },
+        {
+            title: 'Now playing',
+            url: '#'
+        },
+        {
+            title: 'Popular',
+            url: '#'
+        }
+    ]
+};
+
+const TvShow: ISubMenuComponentProps = {
+    title: 'Tv Show',
+    list_submenu: [
+        {
+            title: 'Top rated',
+            url: '#'
+        },
+        {
+            title: 'Up Coming',
+            url: '#'
+        },
+        {
+            title: 'Now playing',
+            url: '#'
+        },
+        {
+            title: 'Popular',
+            url: '#'
+        }
+    ]
+};
+
+const People: ISubMenuComponentProps = {
+    title: 'People',
+    list_submenu: [
+        {
+            title: 'Top rated',
+            url: '#'
+        },
+        {
+            title: 'Up Coming',
+            url: '#'
+        },
+        {
+            title: 'Now playing',
+            url: '#'
+        },
+        {
+            title: 'Popular',
+            url: '#'
+        }
+    ]
+};
+
+
+const More: ISubMenuComponentProps = {
+    title: 'More',
+    list_submenu: [
+        {
+            title: 'Top rated',
+            url: '#'
+        },
+        {
+            title: 'Up Coming',
+            url: '#'
+        },
+        {
+            title: 'Now playing',
+            url: '#'
+        },
+        {
+            title: 'Popular',
+            url: '#'
+        }
+    ]
+};
+
+
 
 
 
@@ -38,41 +134,23 @@ const NavBarComponent: React.FunctionComponent = () => {
         <div className='container flex items-center justify-center w-screen  h-16 sticky top-0 z-100'>
             <div className="mx-4 md:px-0 container flex justify-between items-center relative">
                 <div className='flex flex-row gap-4'>
-                    <a href="#" className='text-yellow-400/80 text-3xl font-["Teko"] font-bold block pt-2'>
-                        <span className='hover:text-gray-400 transition-all ease-in-out duration-200'>POPCORNTV</span>
-                    </a>
-                    <ul className='hidden md:flex flex-row min-h-full items-center gap-4'>
-                        <li className=''>
-                        <a href="">Movies</a>
-                        </li>
-                        <li className=''>
-                        <a href="">TV Shows</a>
-                        </li>
-                        <li className=''>
-                        <a href="">People</a>
-                        </li>
-                        <li className=''>
-                        <a href="">More</a>
-                        </li>
-                    </ul>
+                    <LogoComponent title='POPCORNTV'/>
+                    <MenuContainerComponent>
+                        <SubMenuComponent title={Movies.title} list_submenu={Movies.list_submenu}/>
+                        <SubMenuComponent title={TvShow.title} list_submenu={Movies.list_submenu}/>
+                        <SubMenuComponent title={People.title} list_submenu={Movies.list_submenu}/>
+                        <SubMenuComponent title={More.title} list_submenu={Movies.list_submenu}/>
+                    </MenuContainerComponent>
                 </div>
                 <div className='hidden md:flex gap-4 items-center'>
-                    <div>
-                        <label className="relative block">
-                        <span className="sr-only">Search</span>
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                        <BsSearch className='h-5 w-5 fill-slate-300" viewBox="0 0 20 20'/>
-                        </span>
-                        <input className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search movies..." type="text" name="search"/>
-                        </label>
-                    </div>
-                    <a href="#">Login</a>
+                    <SearchBarComponent/>
+                    <LoginRegisterComponent/>
                 </div>
                 <button className="block md:hidden" onClick={handleOpenMenu}>
                 <HiOutlineMenuAlt2 size={'30px'} className=''/>
                 </button>
+                <MenuResponsive isOpenMenu={isOpenMenu} OnChangeOpenMenu={handleOpenMenu}/>
             </div>
-            <MenuResponsive isOpenMenu={isOpenMenu} OnChangeOpenMenu={handleOpenMenu}/>
         </div>
       </nav>
   );
