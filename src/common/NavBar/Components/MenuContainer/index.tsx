@@ -1,14 +1,19 @@
 import * as React from 'react';
+import SubMenuComponent, { ISubMenuComponentProps } from '../SubMenu';
 
 interface IMenuContainerComponentProps {
-    children: React.ReactNode,
+  data: Array<ISubMenuComponentProps>
 }
 
 const MenuContainerComponent: React.FunctionComponent<IMenuContainerComponentProps> = (props) => {
-    const {children} = props;
+    const {data} = props;
   return (
     <ul className='hidden md:flex flex-row min-h-full items-center gap-4'>
-        {children}
+        {data.map((SubItem) => {
+          return(
+            <SubMenuComponent title={SubItem.title} list_submenu={SubItem.list_submenu} />
+          )
+        })}
     </ul>
   );
 };
