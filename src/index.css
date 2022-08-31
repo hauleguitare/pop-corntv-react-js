@@ -11,6 +11,18 @@
   }
 }
 
+/*
+  --> ACTIVE BUTTON CLICK INPUT <--
+*/
+.active-button {
+  @apply bg-white/30;
+  @apply opacity-100;
+  @apply text-white;
+}
+
+/*
+  --> ACTIVE SEARCH BAR INPUT <--
+*/
 .active_search_bar_input {
   @apply w-full;
   @apply transition-[max-w-full_0.4s_ease-in-out];
@@ -25,4 +37,13 @@
 
 .active_search_bar_input #show_form_search_bar {
   @apply block;
+}
+
+ {
+  /*
+ --> COLLECTION VARIABLE CSS FOR MAIN-APP <--
+*/
+}
+#main-app {
+  --height-navbar: 64px;
 }

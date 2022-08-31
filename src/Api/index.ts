@@ -1,0 +1,1 @@
+export {GetListPopular} from './Movies/ListMoviesPopular';
