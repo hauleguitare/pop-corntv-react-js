@@ -6,7 +6,7 @@ type IResponseListCategory = {
 }
 
 export type IResultCategory = {
-    id: number,
+    id: number | string,
     name: string
 }
 

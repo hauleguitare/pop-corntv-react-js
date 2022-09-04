@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import ActionActiveCategory from '../../action/ActiveCategory';
 import { IResultCategory } from '../../Api/Category';
 import ListCategoryComponent from '../components/ListCategory';
 
 interface IListCategoryContainerProps {
-    callbackActiveId(activeId: string): void,
     listCategory: IResultCategory[],
     type: string,
-    displayCustom: string
+    displayCustom: string,
+    DefaultActiveId?: string
 }
 
 const ListCategoryContainer: React.FunctionComponent<IListCategoryContainerProps> = (props) => {
-    const {callbackActiveId, listCategory, type, displayCustom} = props;
-    const [activeId, setActiveId] = useState<string>('');
+    const {listCategory, type, displayCustom, DefaultActiveId} = props;
+    const dispatch = useDispatch();
+    const ActionCreator = new ActionActiveCategory(type);
+    const [activeId, setActiveId] = useState<string>(() =>{
+        return(DefaultActiveId ? DefaultActiveId : '')
+    });
     const handleOnClick = (activeId: string) =>{
         setActiveId(activeId);
-        callbackActiveId(activeId);
-      }
+        const payload = {
+            name: type,
+            id: activeId
+        }
+        const action = ActionCreator.UpdateActiveId(payload);
+        dispatch(action);
+        console.log("Action : ", action);
+        }
   return (
       <ListCategoryComponent ActiveCategoryClick={handleOnClick} activeId={activeId} nameType={type} listCategory={listCategory} displayCustom={displayCustom}/>
   );

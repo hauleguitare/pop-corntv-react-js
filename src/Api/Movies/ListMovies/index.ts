@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import {AxiosClient, API_KEY, responseBody} from "../../ConfigAxios";
 
 
-export type IResultsListMoviesPopular = {
+export interface IResultsListMovies {
     poster_path : string | null,
     adult: boolean,
     overview: string,
@@ -10,8 +10,8 @@ export type IResultsListMoviesPopular = {
     genre_ids: number[],
     id : number,
     original_language: string,
-    name: string | null,
-    title: string | null,
+    name: string | undefined,
+    title: string | undefined,
     backdrop_path: string | null,
     popularity: number,
     vote_count: number,
@@ -19,12 +19,14 @@ export type IResultsListMoviesPopular = {
     vote_average: number,
 }
 
-export type IResponseListMoviesPopular = {
+export interface IResponseListMoviesPopular {
     page: number,
-    results: IResultsListMoviesPopular[],
+    results: IResultsListMovies[],
     total_results: number,
     total_pages: number
 }
+
+interface IResponseListMoviesDiscover extends IResponseListMoviesPopular {}
 
 
 const MoviesResquest = {
@@ -39,4 +41,13 @@ export const GetListPopular = (type:string): Promise<IResponseListMoviesPopular>
     return res;
     
 };
+
+export const GetListDiscover = (type:string, categoryId?: string): Promise<IResponseListMoviesDiscover> =>{
+    const params = {
+        api_key : API_KEY,
+        with_genres: categoryId
+    }
+    const res = MoviesResquest.get(`/discover/${type}`, {params});
+    return res;
+}
 

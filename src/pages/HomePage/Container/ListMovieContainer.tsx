@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { BsArrowUpRightCircle } from 'react-icons/bs';
-import { GetListCategory, IResultCategory } from '../../../Api/Category';
-import { IResultsListMoviesPopular } from '../../../Api/Movies/ListMoviesPopular';
-import ListCategoryContainer from '../../../common/container/ListCategoryContainer';
-import { ListMoviesComponent } from '../components';
+import React, { Suspense, useEffect, useState } from 'react';
+import { GetListDiscover, IResponseListMoviesPopular, IResultsListMovies } from '../../../Api/Movies/ListMovies';
 import {GetListPopular} from '../../../Api';
+import SpinnerLoadingComponent from '../../../common/components/UI/SpinnerLoading';
+import { useSelector } from 'react-redux';
+import rootReducer, { IRootReducer } from '../../../reducer';
+import { IActiveIdState } from '../../../reducer/ActiveCategory';
+// import { ListMoviesComponent } from '../components';
 
 
 
 interface IListMovies {
-    primary: IResultsListMoviesPopular,
-    listSubMovies: Array<IResultsListMoviesPopular>
+    primary: IResultsListMovies,
+    listSubMovies: Array<IResultsListMovies>
 }
 
 
 interface IListMoviesContainerProps {
-    title: string,
     type: string,
+    // categoryId?: number | string
 }
 
 const mapActiveIdToType = (activeId: string, type: string): number => {
@@ -29,63 +30,42 @@ const mapActiveIdToType = (activeId: string, type: string): number => {
 }
 
 
+const ListMoviesComponent = React.lazy(() => import('../components/ListMovies'));
+const ParseCategory = (categoryId: string | undefined, type: string) =>{
+  if (categoryId)
+  {
+    return categoryId.replace(`${type}-`, '');
+  }else{
+    return
+  }
+}
+
 const ListMoviesContainer: React.FunctionComponent<IListMoviesContainerProps> = (props) => {
-    const {title , type} = props;
-    const [category, setCategory] = useState<IResultCategory[]>([]);
-    const [listConcrete, setListConcrete] = useState<IResultsListMoviesPopular[]>([]);
-    const [selectCategory, setSelectCategory] = useState<number>(0);
-
-
-    const handleActiveCategory = (activeId: string) =>{
-      const Id = mapActiveIdToType(activeId, type);
-      if (Id === -1)
-      {
-        return;
-      }else{
-        setSelectCategory(Id);
-      }
-    }
+    const {type} = props;
+    const [listConcrete, setListConcrete] = useState<IResultsListMovies[]>([]);
+    const categoryId = useSelector((reducer: IRootReducer) =>{
+      return(
+        reducer.activeCategoryReducer[type].id
+      )
+    });
     useEffect(() => {
-      const getDataFromAPI = async () => {
+      const getDataFromAPI = async() =>{
         try{
-          const res = await GetListPopular(type);
+          const categoryParams = ParseCategory(categoryId?.toString(), type);
+          const res = await(GetListDiscover(type, categoryParams));
           const data = res.results;
           setListConcrete(data);
         }catch(e)
         {
           console.log(e);
         }
-        
-      };
-      getDataFromAPI();
-    }, [])
-    
-
-    useEffect(() => {
-      const getCategory = async() => {
-        const res = await GetListCategory(type, 'vi');
-        const data = res.genres;
-        setCategory(data);
       }
-      getCategory();
-    },[])
-
-    
-
+      getDataFromAPI();
+    }, [categoryId])
   return (
-    <section className='flex relative flex-col my-4'>
-    <div className='flex relative flex-row justify-between'>
-      <h1 className='text-4xl py-5 px-8 font-bold'>{title}</h1>
-      <a href='#' className='flex flex-row items-center gap-2 mx-4 group text-sm sm:text-xl'>
-        <span className='font-["Lora"] bg-left-bottom bg-gradient-to-r from-gray-500 to-gray-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-200 ease-out hover:text-red-500'>Xem tất cả</span>
-        <BsArrowUpRightCircle className='group-hover:rotate-180 origin-center duration-200 w-[20px] h-[20px] sm:w-[25px] sm:h-[25px]'/>
-      </a>
-    </div>
-    <div className='container my-4 pb-4 sm:border-b-2 border-gray-400 text-md sm:text-xl'>
-      <ListCategoryContainer callbackActiveId={handleActiveCategory} listCategory={category} displayCustom='flex flex-wrap sm:flex-row justify-start' type={type} />
-    </div>
-    <ListMoviesComponent listMovie={listConcrete} type={type}/>
-  </section>
+    <Suspense fallback={<SpinnerLoadingComponent />}>
+      <ListMoviesComponent listMovie={listConcrete} type={type}/>
+    </Suspense>
   );
 };
 

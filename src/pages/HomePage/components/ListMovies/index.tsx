@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
 import {FaPlay} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { IResultsListMoviesPopular } from '../../../../Api/Movies/ListMoviesPopular';
+import { IResultsListMovies } from '../../../../Api/Movies/ListMovies';
+import LayzyLoadImg from '../../../../common/components/UI/LazyLoadImg';
+import PlaceHolderImgComponent from '../../../../common/components/UI/PlaceHolderImg';
 
 interface IListMovieComponentProps {
-  listMovie: Array<IResultsListMoviesPopular>;
+  listMovie: Array<IResultsListMovies>;
   type: string
 }
-
-const handleUndefinded = (state: Array<IResultsListMoviesPopular>):boolean => {
-    if (state?.length > 0)
-    {
-        return true;
-    }else{
-        return false;
-    }
-};
-
-
 
 const ListMoviesComponent: React.FunctionComponent<IListMovieComponentProps> = (props) => {
     const {listMovie, type} = props;
@@ -37,7 +28,8 @@ const ListMoviesComponent: React.FunctionComponent<IListMovieComponentProps> = (
                     <span className='text-white my-4 font-["Lora"]'>{(primary.title !== undefined) ? primary.title : primary.name}</span>
                 </div>
             </div>
-            <img src={`https://image.tmdb.org/t/p/w300${(primary.poster_path !== null) ? primary.poster_path : '/'}`} className='group-hover:scale-125 transition-all ease-in duration-200 w-full object-cover'/>
+            <LayzyLoadImg src={`https://image.tmdb.org/t/p/original${(primary.poster_path !== null) ? primary.poster_path : '/'}`} delay={1000} placeholder={<PlaceHolderImgComponent />} height={850} className='group-hover:scale-125 transition-all ease-in duration-200 w-full object-cover'/>
+            
         </li>
         {/* //? SUB SECONDARY MOVIE */}
         {
@@ -52,7 +44,7 @@ const ListMoviesComponent: React.FunctionComponent<IListMovieComponentProps> = (
                             <span className='text-white my-4 font-["Lora"]'>{(movie.title !== undefined) ? movie.title : movie.name}</span>
                         </div>
                     </div>
-                    <img src={`https://image.tmdb.org/t/p/w300${(movie.poster_path !== null) ? movie.poster_path : ''}`} className='group-hover:scale-125 transition-all ease-in duration-200 w-full object-cover' />
+                    <LayzyLoadImg src={`https://image.tmdb.org/t/p/original${(movie.poster_path !== null) ? movie.poster_path : ''}`} delay={800} placeholder={<PlaceHolderImgComponent />} height={850} className='group-hover:scale-125 transition-all ease-in duration-200 w-full object-cover' />
                 </li>
                 )
             })

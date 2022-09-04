@@ -22,6 +22,6 @@
   },
   "include": [
     "src/**/*"
-, "store.ts"  ],
+, "src/store.ts"  ],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }

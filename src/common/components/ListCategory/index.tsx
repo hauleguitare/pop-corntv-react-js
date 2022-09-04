@@ -10,7 +10,7 @@ interface IListCategoryComponentProps {
 
 
 interface IListCategory {
-    id: number,
+    id: number | string,
     name: string
   }
   
