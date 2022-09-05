@@ -17,7 +17,7 @@ const HorizontalCardComponent: React.FunctionComponent<HorizontalCardComponentPr
         <div className="flex flex-nowrap sm:mx-8 mx-4">
           {listMovies?.length > 0 && (listMovies.map((item) => {
             return(
-              <SubCardComponent movies={item} type={type}/>
+              <SubCardComponent movies={item} type={type} key={item.id}/>
             )
           }))}
         </div>

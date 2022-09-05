@@ -19,21 +19,21 @@ export interface IResultsListMovies {
     vote_average: number,
 }
 
-export interface IResponseListMoviesPopular {
+export interface IResponseListMovies <T>{
     page: number,
-    results: IResultsListMovies[],
+    results: T[],
     total_results: number,
     total_pages: number
 }
 
-interface IResponseListMoviesDiscover extends IResponseListMoviesPopular {}
+interface IResponseListMoviesDiscover extends IResponseListMovies<IResultsListMovies> {}
 
 
 const MoviesResquest = {
     get: (url: string, params: AxiosRequestConfig) => AxiosClient.get(url, params).then(responseBody)
 }
 
-export const GetListPopular = (type:string): Promise<IResponseListMoviesPopular> => {
+export const GetListPopular = (type:string): Promise<IResponseListMovies<IResultsListMovies>> => {
     const params = {
         api_key: API_KEY
     }

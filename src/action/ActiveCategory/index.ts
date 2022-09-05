@@ -3,9 +3,12 @@ import { IActiveIdState } from "../../reducer/ActiveCategory";
 
 export interface IActionActiveCategoryState{
     type: string,
-    payload: IActiveIdState
+    payload:IPayloadAction
 }
-
+interface IPayloadAction{
+    status: boolean,
+    data: IActiveIdState
+}
 
 
 class ActionActiveCategory {
@@ -13,10 +16,21 @@ class ActionActiveCategory {
     constructor(type: string){
         this.type = type;
     }
-    UpdateActiveId(payload: IActiveIdState){
+    UpdateActiveId(payload: IPayloadAction){
         const action = {
             type: `${this.type.toUpperCase()}/UPDATE_ACTIVEID`,
             payload: payload
+        };
+        return action;
+    }
+
+    UpdateStatus(status: boolean){
+        const action = {
+            type: `${this.type.toUpperCase()}/UPDATE_STATUS`,
+            payload: {
+                data: null,
+                status: status
+            }
         };
         return action;
     }

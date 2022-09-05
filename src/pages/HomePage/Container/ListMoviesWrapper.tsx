@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import { GetListCategory, IResultCategory } from '../../../Api/Category';
+import PlaceHolderSwitchCategoryComponent from '../../../common/components/UI/PlaceHolderSwitchCategory';
 import { IRootReducer } from '../../../reducer';
 import { IActiveIdState } from '../../../reducer/ActiveCategory';
 
@@ -33,7 +34,7 @@ const ListMoviesContainer = React.lazy(() => import ('./ListMovieContainer'));
 
   return (
     <section className='flex relative flex-col my-4'>
-      <Suspense fallback={<div>Is loading...</div>}>
+      <Suspense fallback={<PlaceHolderSwitchCategoryComponent/>}>
         <div className='flex relative flex-row justify-between'>
             <h1 className='text-4xl py-5 px-8 font-bold'>{title}</h1>
             <ViewAllComponent LinkTo='/abc'/>
@@ -41,7 +42,7 @@ const ListMoviesContainer = React.lazy(() => import ('./ListMovieContainer'));
         <div className='container my-4 pb-4 sm:border-b-2 border-gray-400 text-md sm:text-xl'>
         <ListCategoryContainer listCategory={category} displayCustom='flex flex-wrap sm:flex-row justify-start' type={type} />
         </div>
-        <Suspense fallback={<div>Waiting for loading...</div>}>
+        <Suspense fallback={<PlaceHolderSwitchCategoryComponent/>}>
           <ListMoviesContainer type={type} />
         </Suspense>
       </Suspense>

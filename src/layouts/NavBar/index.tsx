@@ -1,8 +1,8 @@
 import React from 'react';
 import LoginRegisterComponent from './Components/LoginRegister';
 import LogoComponent from './Components/Logo';
-import MenuContainerComponent from './Components/MenuContainer';
-import MenuContainerResponsiveComponent from './Components/MenuContainer/Responsive';
+import MenuComponent from './Components/MenuContainer';
+import MenuResponsiveComponent from './Components/MenuContainer/Responsive';
 import SearchBarComponent from './Components/SearchBar';
 import { ISubMenuComponentProps } from './Components/SubMenu';
 import { createContext, useContext } from 'react';
@@ -11,70 +11,74 @@ import { createContext, useContext } from 'react';
 const dataMenu: Array<ISubMenuComponentProps> = [
     {
         title: 'Movies',
+        id: 'movie',
         list_submenu: [
             {
                 title: 'Top rated',
-                url: 'abc'
+                url: 'list/top-rated'
             },
             {
                 title: 'Up Coming',
-                url: 'test'
+                url: 'list/up-comming'
             },
             {
                 title: 'Now playing',
-                url: 'test'
+                url: 'list/now-playing'
             },
             {
                 title: 'Popular',
-                url: 'test'
+                url: 'list/popular'
             }
         ]
     },
 
     {
         title: 'Tv Show',
+        id: 'tv',
         list_submenu: [
             {
                 title: 'Popular',
-                url: '#'
+                url: 'list/popular'
             },
             {
                 title: 'Airing Today',
-                url: '#'
+                url: 'list/airing-today'
             },
             {
                 title: 'On TV',
-                url: '#'
+                url: 'list/on-tv'
             },
             {
                 title: 'Top Rated',
-                url: '#'
+                url: 'top-rated'
             }
         ]
     },
     {
         title: 'People',
+        id: 'people',
         list_submenu: [
             {
                 title: 'People Popular',
-                url: '#'
+                url: 'list/people-popular'
             }
         ]
     },
     {
         title: 'More',
+        id: 'more',
         list_submenu: [
             {
                 title: 'Disscusions',
-                url: '#'
+                url: 'disscusions'
             },
             {
                 title: 'LeaderBoard',
-                url: '#'
+                url: 'leaderboard'
             },
             {
                 title: 'Support',
-                url: '#'
+                url: 'support'
             }
         ]
     }
@@ -100,7 +104,7 @@ const NavBarComponent: React.FunctionComponent = () => {
                 <NavBarContext.Provider value={{data: dataMenu}}>
                     <div className='flex flex-row gap-4'>
                         <LogoComponent title='POPCORNTV'/>
-                        <MenuContainerComponent/>
+                        <MenuComponent/>
                     </div>
 
                     <div className='hidden md:flex gap-4 items-center'>
@@ -109,7 +113,7 @@ const NavBarComponent: React.FunctionComponent = () => {
                     </div>
 
                     <div className='block md:hidden'>
-                        <MenuContainerResponsiveComponent/>
+                        <MenuResponsiveComponent/>
                     </div>
                 </NavBarContext.Provider>
             </nav>

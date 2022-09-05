@@ -7,43 +7,71 @@ export interface IActiveIdState {
 }
 
 
+
+
 interface IMapKey {
-    [type: string]: IActiveIdState
+    [type: string]:{
+        status: boolean,
+        data: IActiveIdState
+    }
 }
 
 interface IActiveCateogryState extends IMapKey{
-    movie: IActiveIdState,
-    tv: IActiveIdState,
-    person: IActiveIdState,
-    trending: IActiveIdState
+    movie:{
+        status: boolean,
+        data: IActiveIdState
+    },
+    tv: {
+        status: boolean,
+        data: IActiveIdState
+    },
+    person:{
+        status: boolean,
+        data: IActiveIdState
+    },
+    trending: {
+        status: boolean,
+        data: IActiveIdState
+    }
 }
 
 
 
 const inititalState: IActiveCateogryState = {
-    movie: {
-        id: undefined,
-        name: undefined,
+    movie:{
+        status: false,
+        data: {
+            id: undefined,
+            name: undefined
+        }
     },
-    tv: {
-        id: undefined,
-        name: undefined
+    tv:{
+        status: false,
+        data: {
+            id: undefined,
+            name: undefined
+        }
     },
-    person: {
-        id: 0,
-        name: ''
+    person:{
+        status: false,
+        data: {
+            id: undefined,
+            name: undefined
+        }
     },
-    trending: {
-        id: 0,
-        name: ''
-    }
-
+    trending:{
+        status: false,
+        data: {
+            id: undefined,
+            name: undefined
+        }
+    },
 }
 
 
 
 
-const ActiveCategoryReducer = (state = inititalState, action: IActionActiveCategoryState) => {
+const ActiveCategoryReducer = (state: IActiveCateogryState = inititalState, action: IActionActiveCategoryState) => {
     switch(action.type)
     {
         case "MOVIE/UPDATE_ACTIVEID":{
@@ -52,7 +80,17 @@ const ActiveCategoryReducer = (state = inititalState, action: IActionActiveCateg
                 movie: action.payload
             }
             return newState;
-            
+        }
+
+        case "MOVIE/UPDATE_STATUS": {
+            const newState = {
+                ...state,
+                movie: {
+                    ...state.movie,
+                    status: action.payload.status,
+                }
+            }
+            return newState;
         }
 
         case "TV/UPDATE_ACTIVEID": {
@@ -61,8 +99,19 @@ const ActiveCategoryReducer = (state = inititalState, action: IActionActiveCateg
                 tv: action.payload
             }
             return newState;
-            
         }
+
+        case "TV/UPDATE_STATUS": {
+            const newState = {
+                ...state,
+                tv: {
+                    ...state.tv,
+                    status: action.payload.status,
+                }
+            }
+            return newState;
+        }
+
 
         case "PERSON/UPDATE_ACTIVEID":{
             const newState = {
@@ -70,8 +119,19 @@ const ActiveCategoryReducer = (state = inititalState, action: IActionActiveCateg
                 person: action.payload
             }
             return newState;
-            
         }
+
+        case "PERSON/UPDATE_STATUS": {
+            const newState = {
+                ...state,
+                person: {
+                    ...state.person,
+                    status: action.payload.status,
+                }
+            }
+            return newState;
+        }
+
 
         case "TRENDING/UPDATE_ACTIVEID":{
             const newState = {
@@ -79,9 +139,18 @@ const ActiveCategoryReducer = (state = inititalState, action: IActionActiveCateg
                 trending: action.payload
             }
             return newState;
-            
         }
 
+        case "TRENDING/UPDATE_STATUS": {
+            const newState = {
+                ...state,
+                trending: {
+                    ...state.trending,
+                    status: action.payload.status,
+                }
+            }
+            return newState;
+        }
         default:{
             return state;
         }

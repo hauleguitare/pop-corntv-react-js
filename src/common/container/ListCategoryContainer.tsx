@@ -21,12 +21,14 @@ const ListCategoryContainer: React.FunctionComponent<IListCategoryContainerProps
     const handleOnClick = (activeId: string) =>{
         setActiveId(activeId);
         const payload = {
-            name: type,
-            id: activeId
+            status: false,
+            data: {
+                name: type,
+                id: activeId
+            }
         }
         const action = ActionCreator.UpdateActiveId(payload);
         dispatch(action);
-        console.log("Action : ", action);
         }
   return (
       <ListCategoryComponent ActiveCategoryClick={handleOnClick} activeId={activeId} nameType={type} listCategory={listCategory} displayCustom={displayCustom}/>

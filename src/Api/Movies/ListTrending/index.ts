@@ -1,10 +1,13 @@
 import { API_KEY, AxiosClient, responseBody } from "../../ConfigAxios";
 import { AxiosRequestConfig } from "axios";
-import { IResponseListMoviesPopular, IResultsListMovies } from "../ListMovies";
+import { IResponseListMovies, IResultsListMovies } from "../ListMovies";
 
-export interface IResultsListTrending extends IResultsListMovies{}
+export interface IResultsListTrending extends IResultsListMovies{
+    media_type: string
+}
 
-export interface IResponseListTrending extends IResponseListMoviesPopular{}
+export interface IResponseListTrending extends IResponseListMovies<IResultsListTrending>{
+}
 
 
 const TrendingRequest = {

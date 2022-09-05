@@ -13,7 +13,7 @@ const LayzyLoadImg: React.FunctionComponent<ILayzyLoadImgProps> = (props) => {
   const {src, height, delay, className, placeholder} = props;
   return(
     <div className={className}>
-      <LazyLoad height={height} throttle={delay} placeholder={placeholder}>
+      <LazyLoad height={height} throttle={delay} placeholder={placeholder} scroll={true}>
       <img src={src} />
       </LazyLoad>
     </div>

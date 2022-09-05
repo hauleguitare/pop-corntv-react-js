@@ -40,15 +40,6 @@ const isMediaType = (item: any ): item is IMediaType =>{
 
 const HorizontalCardWrapper: React.FunctionComponent<IHorizontalCardWrapperProps> = (props) => {
     const {type, title} = props;
-    const [mediaType, setMediaType] = useState<IMediaType>('all');
-    //Handle Onclick
-    const HandleOnClick = (item: string) =>{
-      const category = item.replace('trending-', '');
-      if (isMediaType(category))
-      {
-        setMediaType(category);
-      }
-    }
   return (
       <section className='flex flex-col relative'>
         <div className='sm:flex block py-5 lg:px-20 md:px-10 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-4xl categorys-center'>
@@ -62,7 +53,7 @@ const HorizontalCardWrapper: React.FunctionComponent<IHorizontalCardWrapperProps
         </div>
         <div>
           {/* HORIZONTAL CARD CONTAINER */}
-          <HorizontalCardContainer type='trending' mediaType={mediaType}/>
+          <HorizontalCardContainer type='trending' />
         </div>
       </section>
   );

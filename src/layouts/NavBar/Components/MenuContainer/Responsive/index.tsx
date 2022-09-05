@@ -38,7 +38,7 @@ const MapCategoryClickState = (item: string, currentState: ICatetoryClickState):
     return tempState;
 }
 
-const MenuContainerResponsiveComponent: React.FunctionComponent = () =>{
+const MenuResponsiveComponent: React.FunctionComponent = () =>{
     const {data} = useNavBarContext();
     const [isOpenMenu, setOpenMenu] = useState<boolean>(false);
     const [isCategoryClick, setCategoryClick] = useState<ICatetoryClickState>(initialStateCategoryClick);
@@ -100,7 +100,7 @@ const MenuContainerResponsiveComponent: React.FunctionComponent = () =>{
                 <ul className='text-3xl'>
                     {data.map((Subitem) => {
                         return(
-                            <SubMenuResponsiveComponent title={Subitem.title} list_submenu={Subitem.list_submenu} HandleCategoryClick={HandleCatetoryClick}/>
+                            <SubMenuResponsiveComponent title={Subitem.title} list_submenu={Subitem.list_submenu} HandleCategoryClick={HandleCatetoryClick} key={Subitem.id}/>
                         )
                     })}
                 </ul>
@@ -109,4 +109,4 @@ const MenuContainerResponsiveComponent: React.FunctionComponent = () =>{
     </div>
     )
 }
-export default MenuContainerResponsiveComponent;
+export default MenuResponsiveComponent;
