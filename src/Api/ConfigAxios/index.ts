@@ -1,11 +1,11 @@
-import axios, { Axios, AxiosResponse } from 'axios';
+import axios, { Axios, AxiosRequestConfig, AxiosResponse } from 'axios';
 import queryString from 'query-string';
 
 
 
-export const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = (response: AxiosResponse) => response.data;
 export const API_KEY = 'e5d7a4030427b28bf48da1b5f35b3ec7';
-export const AxiosClient = axios.create({
+const AxiosClient = axios.create({
     baseURL: 'https://api.themoviedb.org/3',
     paramsSerializer: params => queryString.stringify(params),
     headers: {
@@ -13,9 +13,11 @@ export const AxiosClient = axios.create({
     }
 });
 
-export const AxiosClientImage = axios.create({
-    baseURL: 'https://image.tmdb.org/t/p',
-    headers: {
-        'Content-Type': 'image/jpeg'
-    }
-});
+
+export const AxiosResquest = {
+    get: (url: string, params: AxiosRequestConfig) => AxiosClient.get(url, params).then(responseBody)
+}
+
+export const paramsBase = {
+    api_key: API_KEY
+}

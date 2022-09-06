@@ -6,7 +6,7 @@ import ListMoviesWrapper from '../Container/ListMoviesWrapper';
 
 
 
-const HomePageContentComponent: React.FunctionComponent = () => {
+const HomePageContent: React.FunctionComponent = () => {
   return(
     <main className="container flex flex-col justify-center z-30 text-white">
       {/* //* SECTION Jumbotron */}
@@ -28,4 +28,4 @@ const HomePageContentComponent: React.FunctionComponent = () => {
   )
 };
 
-export default HomePageContentComponent;
+export default HomePageContent;

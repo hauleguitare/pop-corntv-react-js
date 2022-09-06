@@ -1,42 +1,66 @@
 import * as React from 'react';
+import { IResponseDetailMovie } from '../../../../Api/Movies/Details';
+import BannerMovieWrapper from '../../container/BannerMovieWrapper';
+import OverviewWrapper from '../../container/OverviewWrapper';
+import PosterMovieWrapper from '../../container/PosterMovieWrapper';
+import ReferenceCategoryContainer from '../../container/ReferenceCategoryContainer';
+import TitleContentWrapper from '../../container/TitleContentWrapper';
+import UserScoreWrapper from '../../container/UserScoreWrapper';
+import BannerMovieComponent from './BannerMovie';
 import OverViewComponent from './OverView';
-import ReferenceCategoryComponent from './ReferenceCategory';
-import ReferenceCategoryContainer from './ReferenceCategoryContainer';
+import PosterMovieComponent from './PosterMovie';
 import TitleContentComponent from './TitleContent';
 import UserScoreComponent from './UserScore';
 
-interface IHeaderContentComponentProps {
+interface IHeaderContentContainerProps {
+  data : IResponseDetailMovie
 }
-//bg-[url("https://image.tmdb.org/t/p/w780/eljErfkQUcFUgQkI4I1soZcH8MW.jpg")]
-const HeaderContentComponent: React.FunctionComponent<IHeaderContentComponentProps> = (props) => {
+
+const url ='https://image.tmdb.org/t/p';
+
+const HeaderContentContainer: React.FunctionComponent<IHeaderContentContainerProps> = (props) => {
+  const {data} = props;
   return (
   <div className='relative'>
-      <img src="https://image.tmdb.org/t/p/original/eljErfkQUcFUgQkI4I1soZcH8MW.jpg" className='h-full w-full object-cover absolute inset-0'/>
-      <div className='absolute inset-0 backdrop-blur-[2px] bg-stone-900/70 z-0'></div>
+      {/* Backdrop */}
+      <BannerMovieWrapper className='absolute inset-0'>
+        <BannerMovieComponent url={`${url}/original`} path={data.backdrop_path}/>
+      </BannerMovieWrapper>
+
       <div className='container text-white sm:px-8 sm:py-8 relative flex flex-col sm:flex-row'>
-          <div className='relative min-w-[300px] min-h-[450px] sm:min-w-[300px] sm:min-h-[450px] mx-12 sm:mx-0 sm:ml-0'>
-            <img src='https://image.tmdb.org/t/p/w300/hJfI6AGrmr4uSHRccfJuSsapvOb.jpg' className='rounded-lg shadow-xl'/>
-          </div>
-          <div className='pt-4 sm:pl-4 sm:ml-2 flex flex-col'>
-            <div className='flex flex-col'>
-              <TitleContentComponent title='NỮ KHỦNG LỒ XANH' release_date='2022-10-12' className='flex text-white font-["Merriweather"] text-2xl sm:text-3xl justify-center sm:justify-start'/>
-              <ReferenceCategoryContainer className='text-sm gap-2 flex justify-center sm:justify-start flex-wrap sm:flex-nowrap'/>
-            </div>
-              <UserScoreComponent className='flex flex-col sm:flex-row gap-4 py-4 items-center'/>
-            <div className='flex flex-col py-4'>
-              <h1>OVERVIEW</h1>
-              <OverViewComponent text={'She-Hulk xoay quanh cuộc sống của nữ luật sư Jennifer Walters từ sau khi được anh họ cứu mạng và truyền phóng xạ để trở nên có siêu năng lực đầy mạnh mẽ. Cô sát cánh cùng anh trai chiến đấu bảo vệ lẽ phải và mang đến cuộc sống bình yên cho người dân…'}/>
-            </div>
-            <div className='flex flex-col py-4'>
-              <h1>CREATOR</h1>
-              <a href='#'>
-                <span>Jessica Gao</span>
-              </a>
-            </div>
+
+        {/* Poster */}
+        <PosterMovieWrapper className='relative min-w-[300px] min-h-[450px] sm:min-w-[300px] sm:min-h-[450px] mx-12 sm:mx-0 sm:ml-0'>
+          <PosterMovieComponent url={`${url}/w300`} path={data.poster_path}/>
+        </PosterMovieWrapper>
+          <div className='mt-4 sm:mt-8 mx-4 flex flex-col'>
+
+            {/* Title + Category */}
+            <TitleContentWrapper className='flex flex-col min-h-[48px] sm:min-h-[56px] max-w-full sm:max-w-[600px] relative'>
+              <TitleContentComponent title={(data.title) ? (data.title) : (data.name)} release_date='2022-10-12' className='flex text-white font-["Merriweather"] text-2xl sm:text-3xl justify-center sm:justify-start'/>
+              <ReferenceCategoryContainer className='text-sm gap-2 flex justify-center sm:justify-start flex-wrap sm:flex-nowrap' listCategory={data.genres}/>
+            </TitleContentWrapper>
+
+            {/* User Score */}
+            <UserScoreWrapper className='flex flex-col sm:flex-row gap-4 my-4 justify-center items-center relative min-h-[60px] max-w-full sm:min-h-[80px] sm:max-w-[400px]'>
+              <UserScoreComponent percentage={data.vote_average}/>
+            </UserScoreWrapper>
+
+              {/* OverView */}
+            
+            <OverviewWrapper className='flex flex-col mb-4 min-h-[100px] sm:min-h-[160px] min-w-[100px] sm:min-w-[100vh] relative'>
+              <h1 className='font-["Poppins"] font-bold text-xl'>OVERVIEW</h1>
+              <OverViewComponent text={data.overview} className='text-sm font-["Lora"]' />
+            </OverviewWrapper>
+
+            {/* <div className='flex flex-col py-4'>
+              <h1 className='font-["Poppins"] font-bold text-xl'>CREATOR</h1>
+              <InfoCreatorComponent />
+            </div> */}
           </div>
       </div>
   </div>
   );
 };
 
-export default HeaderContentComponent;
+export default HeaderContentContainer;

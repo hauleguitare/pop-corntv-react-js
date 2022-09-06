@@ -1,4 +1,4 @@
-import { IActionActiveCategoryState } from "../../action/ActiveCategory";
+import { IActionActiveCategoryState } from "../../action/activeCategory";
 
 
 export interface IActiveIdState {

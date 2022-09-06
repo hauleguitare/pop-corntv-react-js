@@ -1,17 +1,18 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { GetListDiscover, IResultsListMovies } from '../../../Api/Movies/ListMovies';
+import { GetListDiscover } from '../../../Api/Movies/ListMovies';
 import SpinnerLoadingComponent from '../../../common/components/UI/SpinnerLoading';
 import { useSelector } from 'react-redux';
 import { IRootReducer } from '../../../reducer';
-import ActionActiveCategory from '../../../action/ActiveCategory';
+import ActionActiveCategory from '../../../action/activeCategory';
 import { useDispatch } from 'react-redux';
 import PlaceHolderSwitchCategoryComponent from '../../../common/components/UI/PlaceHolderSwitchCategory';
+import { IDetailMovieBase } from '../../../Api/interface';
 
 
 
 interface IListMovies {
-    primary: IResultsListMovies,
-    listSubMovies: Array<IResultsListMovies>
+    primary: IDetailMovieBase,
+    listSubMovies: Array<IDetailMovieBase>
 }
 
 
@@ -45,7 +46,7 @@ const ListMoviesContainer: React.FunctionComponent<IListMoviesContainerProps> = 
     const {type} = props;
     const ActionCreator = new ActionActiveCategory(type);
     const dispatch = useDispatch();
-    const [listConcrete, setListConcrete] = useState<IResultsListMovies[]>([]);
+    const [listConcrete, setListConcrete] = useState<IDetailMovieBase[]>([]);
     const categoryId = useSelector((reducer: IRootReducer) =>{
       return(
         reducer.activeCategoryReducer[type].data

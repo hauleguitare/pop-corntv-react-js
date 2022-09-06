@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {FaPlay} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { IResultsListMovies } from '../../../../Api/Movies/ListMovies';
+import { IDetailMovieBase } from '../../../../Api/interface';
 import LayzyLoadImg from '../../../../common/components/UI/LazyLoadImg';
 import PlaceHolderImgComponent from '../../../../common/components/UI/PlaceHolderImg';
 import { ParseURLWithTitle } from '../../../../constant/Functions';
 
 interface IListMovieComponentProps {
-  listMovie: Array<IResultsListMovies>;
+  listMovie: Array<IDetailMovieBase>;
   type: string
 }
 

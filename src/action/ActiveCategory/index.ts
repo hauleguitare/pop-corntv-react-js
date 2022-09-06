@@ -1,4 +1,4 @@
-import { IActiveIdState } from "../../reducer/ActiveCategory";
+import { IActiveIdState } from "../../reducer/activeCategory";
 
 
 export interface IActionActiveCategoryState{

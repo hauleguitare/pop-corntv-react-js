@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import ActiveCategoryReducer from './ActiveCategory';
+import ActiveCategoryReducer from './activeCategory';
 
 const rootReducer = combineReducers({
     activeCategoryReducer: ActiveCategoryReducer,

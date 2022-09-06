@@ -3,14 +3,14 @@ import ProgessBarCircle from './ProgessBarCircle';
 import {FaThList, FaHeart, FaTags, FaStar} from 'react-icons/fa';
 
 interface IUserScoreComponentProps {
-  className?: string
+  percentage: number
 }
 
 const UserScoreComponent: React.FunctionComponent<IUserScoreComponentProps> = (props) => {
-  const {className} = props
+  const {percentage} = props
   return (
-      <div className={className}>
-        <ProgessBarCircle value={7.672} className='max-h-[80px] max-w-[80px] shadow-xl rounded-full cursor-pointer hover:scale-125 duration-300 delay-150'/>
+      <>
+        <ProgessBarCircle value={percentage} className='max-h-[80px] max-w-[80px] shadow-xl rounded-full cursor-pointer hover:scale-125 duration-300 delay-150'/>
         <ul className='flex flex-row gap-4'>
           <li>
             <button className='bg-stone-800 rounded-full h-[50px] w-[50px] flex items-center justify-center group'>
@@ -33,7 +33,7 @@ const UserScoreComponent: React.FunctionComponent<IUserScoreComponentProps> = (p
             </button>
           </li>
         </ul>
-      </div>
+      </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import ActionActiveCategory from '../../action/ActiveCategory';
+import ActionActiveCategory from '../../action/activeCategory';
 import { IResultCategory } from '../../Api/Category';
 import ListCategoryComponent from '../components/ListCategory';
 

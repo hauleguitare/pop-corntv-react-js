@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface ITitleContentComponentProps {
-    title: string,
+    title?: string,
     release_date: string,
     className?: string
 }
@@ -38,10 +38,10 @@ const TitleContentComponent: React.FunctionComponent<ITitleContentComponentProps
     const stringDate = splitDate(release_date,'-' , 'year');
   return (
     <div className={className}>
-    <a className='pr-2 hover:bg-black' href='#'>
-      <span>{title}</span>
-    </a>
-    <span className='pl-2'>({stringDate})</span>
+        <a className='pr-2 hover:bg-black' href='#'>
+        <span>{title}</span>
+        </a>
+        <span className='pl-2'>({stringDate})</span>
   </div>
   );
 };

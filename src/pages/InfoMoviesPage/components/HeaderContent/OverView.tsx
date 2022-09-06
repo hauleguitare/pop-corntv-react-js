@@ -1,13 +1,14 @@
 import * as React from 'react';
 
 interface IOverViewComponentProps {
-    text: string
+    text: string,
+    className?: string
 }
 
 const OverViewComponent: React.FunctionComponent<IOverViewComponentProps> = (props) => {
-  const {text} = props;
+  const {text, className} = props;
     return (
-      <span>{text}</span>
+      <span className={className}>{text}</span>
   );
 };
 

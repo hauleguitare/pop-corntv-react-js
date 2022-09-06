@@ -1,10 +1,10 @@
 import React from 'react';
-import { IResultsListTrending } from '../../../../Api/Movies/ListTrending';
+import { IDetailMovieTrending } from '../../../../Api/Movies/ListTrending';
 import SubCardComponent from './SubCard';
 
 
 interface HorizontalCardComponentProps {
-  listMovies: IResultsListTrending[],
+  listMovies: IDetailMovieTrending[],
   type: string,
 }
 
@@ -17,7 +17,7 @@ const HorizontalCardComponent: React.FunctionComponent<HorizontalCardComponentPr
         <div className="flex flex-nowrap sm:mx-8 mx-4">
           {listMovies?.length > 0 && (listMovies.map((item) => {
             return(
-              <SubCardComponent movies={item} type={type} key={item.id}/>
+              <SubCardComponent movies={item} key={item.id}/>
             )
           }))}
         </div>

@@ -9,11 +9,15 @@ interface IInfoMoviesPageProps {
 const InfoMoviesPage: React.FunctionComponent<IInfoMoviesPageProps> = (props) => {
     const {id, type} = useParams();
     if (!id || !type) return null;
-    const MovieId = RegexIdFromURL(id);
+    const MovieId = Number.parseInt(RegexIdFromURL(id));
   return (
-      <div>
+      <>
+      {Number.isInteger(MovieId) && (
+        <div>
           <InfoMoviesContent MovieId={MovieId} type={type}/>
-      </div>
+        </div>
+      )}
+      </>
   );
 };
 

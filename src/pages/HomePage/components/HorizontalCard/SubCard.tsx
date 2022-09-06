@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { AiFillPlayCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { IResultsListTrending } from '../../../../Api/Movies/ListTrending';
+import { IDetailMovieTrending } from '../../../../Api/Movies/ListTrending';
 import { ParseURLWithTitle } from '../../../../constant/Functions';
 
 interface ISubCardComponentProps {
-  movies: IResultsListTrending,
-  type: string,
+  movies: IDetailMovieTrending,
 }
 
 const SubCardComponent: React.FunctionComponent<ISubCardComponentProps> = (props) => {
-  const {movies, type} = props;
+  const {movies} = props;
   const title = (movies.title) ? (movies.title) : (movies.name);
   if (!title) return null;
   return (

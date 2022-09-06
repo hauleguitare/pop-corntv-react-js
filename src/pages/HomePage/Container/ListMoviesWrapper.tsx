@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { GetListCategory, IResultCategory } from '../../../Api/Category';
 import PlaceHolderSwitchCategoryComponent from '../../../common/components/UI/PlaceHolderSwitchCategory';
-import { IRootReducer } from '../../../reducer';
-import { IActiveIdState } from '../../../reducer/ActiveCategory';
 
 
 interface IListMoviesWrapperProps {

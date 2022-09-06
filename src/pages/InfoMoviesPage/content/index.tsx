@@ -1,21 +1,35 @@
-import * as React from 'react';
-import BodyContentContainer from '../BodyContent';
-import HeaderContentContainer from '../components/container/HeaderContentContainer';
+import React, { Suspense, useEffect, useState } from 'react';
+import { GetDetailMovie, IResponseDetailMovie } from '../../../Api/Movies/Details';
+import BodyContentContainer from '../components/BodyContent';
+import HeaderContentContainer from '../components/HeaderContent';
+// import HeaderContentContainer from '../components/HeaderContent';
+import PlaceHolderComponent from '../components/HeaderContent/PlaceHolder';
 
 interface IInfoMoviesContentProps {
-    MovieId: string,
+    MovieId: number,
     type: string
 }
-
 const InfoMoviesContent: React.FunctionComponent<IInfoMoviesContentProps> = (props) => {
-    const {MovieId, type} = props
+    const {MovieId, type} = props;
+    const [dataMovie, setDataMovie] = useState<IResponseDetailMovie>();
+    useEffect(() =>{
+      const getDataFromAPI = async() =>{
+        const res = await GetDetailMovie(MovieId, type);
+        setDataMovie(res);
+      };
+      getDataFromAPI();
+    }, [])
   return (
-    <div>
+    <>
+    
+      <div>
         {/* HEADER CONTENT */}
-            <HeaderContentContainer/>
+        {dataMovie ? (<HeaderContentContainer data={dataMovie}/>) : (<PlaceHolderComponent/>)}
         {/* BODY CONTENT */}
-            <BodyContentContainer/>
-    </div>
+          {/* <BodyContentContainer data={dataMovie}/> */}
+      </div>
+    
+    </>
         
   );
 };

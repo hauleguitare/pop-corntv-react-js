@@ -1,27 +1,20 @@
 import { AxiosRequestConfig } from "axios";
-import { API_KEY, AxiosClient, responseBody } from "../ConfigAxios";
+import { API_KEY, AxiosResquest, paramsBase} from "../ConfigAxios";
+import { IObjectIDBase } from "../interface";
 
 type IResponseListCategory = {
     genres: Array<IResultCategory>
 }
 
-export type IResultCategory = {
-    id: number | string,
-    name: string
-}
+export interface IResultCategory extends IObjectIDBase {}
 
-const Templateparams = {
-    api_key: API_KEY
-}
 
-const CategoryRequest = {
-    get: (url: string, params: AxiosRequestConfig) => AxiosClient.get(`/genre${url}`, params).then(responseBody)
-}
+
 
 export const GetListCategory = (type: string, lang: string = 'en'):Promise<IResponseListCategory> =>{
     const params = {
         language: lang,
-        ...Templateparams
+        ...paramsBase
     }
-    return CategoryRequest.get(`/${type}/list`, {params});
+    return AxiosResquest.get(`genre/${type}/list`, {params});
 }
